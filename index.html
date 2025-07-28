@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSpace - Advanced Women Safety Hub</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff6b6b">
+</head>
+<body>
+    <div class="emergency-status-bar" id="emergencyStatusBar">
+        🚨 Emergency Mode Active - Help is on the way
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">SafeSpace</div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="#safety" class="nav-link">Safety</a></li>
+                <li class="nav-item"><a href="#community" class="nav-link">Community</a></li>
+                <li class="nav-item"><a href="#support" class="nav-link">Support</a></li>
+                <li class="nav-item"><a href="#profile" class="nav-link">Profile</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="panic-btn-mini" id="panicBtnMini">🚨</button>
+                <div class="profile-avatar" id="profileAvatar">👤</div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile-menu" id="profileMenu">
+        <div class="profile-header">
+            <div class="profile-avatar-large">👤</div>
+            <div class="profile-info">
+                <h3>Sarah Johnson</h3>
+                <p>Premium User</p>
+            </div>
+        </div>
+        <div class="profile-menu-items">
+            <a href="#" id="showSettingsLink">⚙ Settings</a>
+            <a href="#" id="showEmergencyContactsLink">📞 Emergency Contacts</a>
+            <a href="#" id="showSafetyTipsLink">🛡 Safety Tips</a>
+            <a href="#" id="showHelpCenterLink">❓ Help Center</a>
+            <a href="#" id="logoutLink">🚪 Logout</a>
+        </div>
+    </div>
+
+    <section class="hero" id="home">
+        <div class="particles-container" id="particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Advanced Safety Hub</h1>
+            <p class="hero-subtitle">Empowering women with cutting-edge technology, real-time protection, and intelligent community support</p>
+            <div class="cta-buttons">
+                <a href="#dashboard" class="cta-btn cta-primary">Launch Dashboard</a>
+                <a href="#safety" class="cta-btn cta-secondary">Safety Features</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard" id="dashboard">
+        <div class="dashboard-header">
+            <h2 class="dashboard-title">Your Safety Dashboard</h2>
+            <p>Real-time insights and intelligent protection at your fingertips</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="widget animate-on-scroll">
+                <div class="widget-icon">🛡</div>
+                <h3 class="widget-title">Safety Score</h3>
+                <div class="widget-content">
+                    <div class="safety-score" id="safetyScore">87%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="safetyProgress" style="width: 87%"></div>
+                    </div>
+                    <p>Your current safety score based on location and activity</p>
+                </div>
+            </div>
+
+            <div class="widget animate-on-scroll">
+                <div class="widget-icon">🤖</div>
+                <h3 class="widget-title">AI Guardian</h3>
+                <div class="widget-content">
+                    <div class="ai-status active">
+                        <div class="ai-pulse"></div>
+                        <span>Active & Learning</span>
+                    </div>
+                    <p>AI analyzing your patterns and environment for threats</p>
+                    <div class="ai-insights">
+                        <div class="insight-item">📊 Behavior Analysis: Normal</div>
+                        <div class="insight-item">🎯 Threat Detection: Clear</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget animate-on-scroll">
+                <div class="widget-icon">⌚</div>
+                <h3 class="widget-title">Smart Wearable</h3>
+                <div class="widget-content">
+                    <div class="wearable-status">
+                        <div class="device-icon connected">📱</div>
+                        <div class="device-info">
+                            <div class="device-name">SafeWatch Pro</div>
+                            <div class="device-status">Connected • 84% Battery</div>
+                        </div>
+                    </div>
+                    <div class="vital-signs">
+                        <div class="vital-item heart-rate">❤ Heart Rate: 72 BPM</div>
+                        <div class="vital-item steps">🏃 Steps: 8,432</div>
+                        <div class="vital-item stress-level">😌 Stress Level: Low</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget animate-on-scroll">
+                <div class="widget-icon">📍</div>
+                <h3 class="widget-title">Live Location</h3>
+                <div class="widget-content">
+                    <div class="location-widget">
+                        <div class="location-icon">🎯</div>
+                        <div class="location-info">
+                            <div><strong>Current Area: Safe Zone</strong></div>
+                            <div class="location-status">Sharing with 3 contacts</div>
+                        </div>
+                        <div class="toggle-switch active" id="toggleLocationSwitch"></div>
+                    </div>
+                    <div class="location-details">
+                        <div class="detail-item">🏠 Home: 2.3 km</div>
+                        <div class="detail-item">🏥 Hospital: 1.1 km</div>
+                        <div class="detail-item">🚓 Police Station: 0.8 km</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget animate-on-scroll">
+                <div class="widget-icon">👥</div>
+                <h3 class="widget-title">Community Alerts</h3>
+                <div class="widget-content">
+                    <div class="alert-summary">
+                        <div class="alert-count">2 Active</div>
+                        <p>Recent safety alerts in your area</p>
+                    </div>
+                    <div class="recent-alerts">
+                        <div class="alert-item warning">
+                            <div class="alert-icon">⚠</div>
+                            <div class="alert-text">Suspicious activity reported - Main St</div>
+                            <div class="alert-time">2h ago</div>
+                        </div>
+                        <div class="alert-item info">
+                            <div class="alert-icon">ℹ</div>
+                            <div class="alert-text">Safe route recommended via Park Ave</div>
+                            <div class="alert-time">4h ago</div>
+                        </div>
+                    </div>
+                    <button class="cta-btn cta-primary" id="showCommunityAlertsBtn">View All</button>
+                </div>
+            </div>
+
+            <div class="widget animate-on-scroll">
+                <div class="widget-icon">🎙</div>
+                <h3 class="widget-title">Voice Guardian</h3>
+                <div class="widget-content">
+                    <div class="voice-status">
+                        <div class="voice-indicator active">
+                            <div class="voice-wave"></div>
+                            <div class="voice-wave"></div>
+                            <div class="voice-wave"></div>
+                        </div>
+                        <div class="voice-info">
+                            <div class="voice-mode">Listening Mode: ON</div>
+                            <div class="voice-desc">AI-powered voice recognition for distress</div>
+                        </div>
+                    </div>
+                    <div class="voice-commands">
+                        <div class="command-item">"Help me" - Triggers alert</div>
+                        <div class="command-item">"Call emergency" - Dials 911</div>
+                        <div class="command-item">"Safe word: Butterfly" - Cancel alert</div>
+                    </div>
+                    <div class="toggle-switch active" id="toggleVoiceGuardianSwitch"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="advanced-features">
+            <h3 class="section-title">Advanced Protection Features</h3>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👤</div>
+                <div class="feature-content">
+                    <h4>Biometric Security</h4>
+                    <p>Advanced fingerprint and facial recognition for secure access</p>
+                    <div class="biometric-options">
+                        <div class="biometric-item">
+                            <span>👆 Fingerprint</span>
+                            <div class="toggle-switch active" data-biometric-type="fingerprint"></div>
+                        </div>
+                        <div class="biometric-item">
+                            <span>👁 Face Recognition</span>
+                            <div class="toggle-switch active" data-biometric-type="face"></div>
+                        </div>
+                        <div class="biometric-item">
+                            <span>🗣 Voice Authentication</span>
+                            <div class="toggle-switch" data-biometric-type="voice"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🗺</div>
+                <div class="feature-content">
+                    <h4>Smart Route Planning</h4>
+                    <p>AI-powered route optimization based on safety data and real-time conditions</p>
+                    <div class="route-options">
+                        <button class="route-btn" id="planSafestRouteBtn">🛡 Safest Route</button>
+                        <button class="route-btn" id="planFastestRouteBtn">⚡ Fastest Route</button>
+                        <button class="route-btn" id="planWellLitRouteBtn">💡 Well-lit Route</button>
+                    </div>
+                    <div class="route-info">
+                        <div class="route-detail">🚶‍♀ Estimated time: 15 min</div>
+                        <div class="route-detail">🛡 Safety rating: 9.2/10</div>
+                        <div class="route-detail">👥 Community verified: Yes</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📞</div>
+                <div class="feature-content">
+                    <h4>Fake Call Shield</h4>
+                    <p>Simulate incoming calls to escape uncomfortable situations</p>
+                    <div class="fake-call-options">
+                        <button class="fake-call-btn" id="triggerMomCallBtn">📱 Mom Calling</button>
+                        <button class="fake-call-btn" id="triggerBossCallBtn">💼 Boss Calling</button>
+                        <button class="fake-call-btn" id="triggerEmergencyCallBtn">🚨 Emergency Call</button>
+                    </div>
+                    <div class="fake-call-settings">
+                        <div class="setting-item">
+                            <span>Auto-trigger in 30 seconds</span>
+                            <div class="toggle-switch" data-setting="fakeCallAutoTrigger" id="toggleFakeCallAutoTrigger"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="safety-map">
+            <div id="map"></div>
+        </div>
+
+        <div class="emergency-panel">
+            <h3>Emergency Response Center</h3>
+            <p>Instant access to emergency services and support</p>
+            <div class="emergency-buttons">
+                <button class="emergency-btn panic" id="panicButton">🚨 PANIC BUTTON</button>
+                <button class="emergency-btn" id="callEmergencyBtn">📞 Call 911</button>
+                <button class="emergency-btn" id="sendAlertBtn">📱 Send Alert</button>
+                <button class="emergency-btn" id="startRecordingBtn">🎤 Record Audio</button>
+                <button class="emergency-btn" id="sendLocationBtn">📍 Share Location</button>
+                <button class="emergency-btn" id="activateStrobeBtn">💡 Strobe Light</button>
+            </div>
+            <div class="emergency-info">
+                <div class="info-item">
+                    <div class="info-icon">🏥</div>
+                    <div class="info-text">Nearest Hospital: City General (1.2 km)</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">🚓</div>
+                    <div class="info-text">Nearest Police: Station 5 (0.8 km)</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">🔥</div>
+                    <div class="info-text">Fire Department: Station 3 (1.5 km)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <div class="chat-header-info">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-details">
+                    <strong>Crisis Support AI</strong>
+                    <div class="chat-status">Online • End-to-end encrypted</div>
+                </div>
+            </div>
+            <div class="chat-actions">
+                <button class="chat-action-btn" id="toggleChatLanguageBtn">🌐</button>
+                <button class="chat-action-btn" id="closeChatBtn">×</button>
+            </div>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot">
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                    <strong>SafeSpace AI</strong><br>
+                    Hi! I'm here to help 24/7. How are you feeling today? If you're in immediate danger, please use the panic button or call emergency services.
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <button class="chat-input-btn" id="showQuickResponsesBtn">💬</button>
+            <input type="text" id="chatInput" placeholder="Type your message...">
+            <button class="chat-input-btn" id="startVoiceMessageBtn">🎤</button>
+            <button class="chat-send-btn" id="sendMessageBtn">Send</button>
+        </div>
+        <div class="quick-responses" id="quickResponses">
+            <button class="quick-btn" data-response="I need help">I need help</button>
+            <button class="quick-btn" data-response="I feel unsafe">I feel unsafe</button>
+            <button class="quick-btn" data-response="Emergency">Emergency</button>
+            <button class="quick-btn" data-response="I'm okay now">I'm okay now</button>
+        </div>
+    </div>
+
+    <button class="chat-toggle-btn" id="chatToggleBtn">
+        <div class="chat-toggle-icon">💬</div>
+        <div class="chat-toggle-notification" id="chatNotification">1</div>
+    </button>
+
+    <div class="emergency-contacts-widget" id="emergencyContactsWidget">
+        <div class="emergency-contacts-header">
+            <h4>Emergency Contacts</h4>
+            <button id="closeEmergencyContactsBtn">×</button>
+        </div>
+        <div class="emergency-contacts-list">
+            <!-- Contacts will be rendered here by JavaScript -->
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="modal-close" id="closeSettingsModalBtn">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h4>Privacy Settings</h4>
+                    <div class="setting-item">
+                        <span>Share location with contacts</span>
+                        <div class="toggle-switch active" data-setting="locationSharing"></div>
+                    </div>
+                    <div class="setting-item">
+                        <span>Anonymous community sharing</span>
+                        <div class="toggle-switch active" data-setting="anonymous"></div>
+                    </div>
+                    <div class="setting-item">
+                        <span>Voice recording for evidence</span>
+                        <div class="toggle-switch" data-setting="recordingEnabled"></div>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h4>Notification Settings</h4>
+                    <div class="setting-item">
+                        <span>Community alerts</span>
+                        <div class="toggle-switch active" data-setting="alerts"></div>
+                    </div>
+                    <div class="setting-item">
+                        <span>Safety tips</span>
+                        <div class="toggle-switch active" data-setting="tips"></div>
+                    </div>
+                    <div class="setting-item">
+                        <span>Emergency notifications</span>
+                        <div class="toggle-switch active" data-setting="emergency"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pwa-install-prompt" id="pwaInstallPrompt">
+        <div class="pwa-content">
+            <div class="pwa-icon">📱</div>
+            <div class="pwa-text">
+                <h4>Install SafeSpace</h4>
+                <p>Get instant access to safety features</p>
+            </div>
+            <button class="pwa-install-btn" id="installPWABtn">Install</button>
+            <button class="pwa-close-btn" id="dismissPWABtn">×</button>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
