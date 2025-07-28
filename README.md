@@ -2,8 +2,8 @@
 
 ## Empowering Women with Cutting-Edge Technology and Intelligent Support
 
-![SafeSpace Screenshot Placeholder](https://via.placeholder.com/1200x600?text=SafeSpace+Dashboard+Screenshot)
-*(Replace this with a high-quality screenshot or GIF of your live application's dashboard)*
+![SafeSpace Screenshot Placeholder](Dashboard.png)
+
 
 ## 🚀 Live Demo
 
